@@ -1,0 +1,98 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "0.0",
+    "title": "Weather API"
+  },
+  "tags": [
+    {
+      "name": "Current weather",
+      "description": "Used to get info about current weather"
+    }
+  ],
+  "paths": {
+    "/weather/currentweather/:city": {
+      "get": {
+        "tags": [
+          "Current weather"
+        ],
+        "summary": "Used to get weather by city name",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "example": "London",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Return weather in given city"
+          },
+          "400": {
+            "description": "Given city not found"
+          }
+        }
+      }
+    },
+    "/weather/currentweather": {
+      "get": {
+        "tags": [
+          "Current weather"
+        ],
+        "summary": "Used to get weather by coordinates",
+        "parameters": [
+          {
+            "name": "lat",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/coordinates/properties/lat"
+            }
+          },
+          {
+            "name": "lon",
+            "in": "query",
+            "required": true,
+            "schema": {
+
+              "$ref": "#/components/schemas/coordinates/properties/lon"
+            }
+          }
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Return weather in given coordinates"
+          },
+          "400": {
+            "description": "Coordinates not valid"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "coordinates" : {
+        "properties": {
+          "lat": {
+            "type": "number",
+            "minimum": -180,
+            "maximum": 180,
+            "example": 40
+          },
+          "lon": {
+            "type": "number",
+            "minimum": -90,
+            "maximum": 90,
+            "example": 80
+          }
+        }
+      }
+    }
+  }
+}
